@@ -215,26 +215,16 @@ void Game::update()
 		//this->updateMousePosition();
 		//this->updateText();
 		//this->updateEnemies();
-		this->player.update(this->window,deltaTime);
+		this->player.update(this->window, deltaTime);
 	}
 
 	if (this->health <= 0)
 	{
 		this->endGame = true;
 	}
-	this->collision();
+
 }
 
-void Game::collision()
-{
-	if (this->player->getPosition().y + this->player->getGlobalBounds().height + 30 > this->window->getSize().y)
-	{
-		this->player->reseVelocityY();
-		this->player->setPosition(this->player->getPosition().x, this->window->getSize().y - this->player->getGlobalBound().height);
-		this->player->jumping = false;
-		this->player->gravityBool = false;
-	}
-}
 
 void Game::renderText(RenderTarget& target)
 {
