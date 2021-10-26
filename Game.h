@@ -58,13 +58,7 @@ public:
 	void updateEnemies();
 	void updateMap();
 	void update();
-	
-	void collision(); 
-	{
-		if (this->player->getPosition().y + this->player->getGlobalBounds().height + 30 > this->window->getSize().y)
-		{
-		}
-	}
+
 
 	void renderText(RenderTarget& target);
 	void renderEnemies(RenderTarget& target);
