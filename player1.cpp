@@ -33,22 +33,11 @@ void Player::initAnimetion()
 	this->aniTime.restart();
 }
 
-void Player::initPhysics()
-{
-	this->velocityMax = 10.f;
-	this->velocityMin = 1.f;
-	this->acceletion = 3.f;
-	this->drag = 0.9f;
-	this->gravity = 2.f;
-	this->velocityMaxY = 1.f;
-}
-
 Player::Player()
 {
 	this->initVariables();
 	this->initSprite();
 	this->initAnimetion();
-	this->initPhysics();
 }
 
 Player::~Player()
@@ -100,7 +89,7 @@ void Player::updateInput(float deltaTime)
 			this->sprite.move(0.f, this->movementSpeed);
 		}
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::W))
+	else if (Keyboard::isKeyPressed(Keyboard::W) && !jumping)
 	{
 		this->sprite.move(0.f, -this->movementSpeed);
 		this->moving = true;
@@ -114,21 +103,20 @@ void Player::updateInput(float deltaTime)
 	{
 		this->moving = false;
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Space)&&!jumping)
+	if (Keyboard::isKeyPressed(Keyboard::Space) && !jumping)
 	{
 		this->jumping = true;
 		this->a = jumpF / mass;
 	}
-	if (this->jumping) 
+	if (this->jumping)
 	{
 		a -= g * deltaTime;
 		this->sprite.move(0, -a);
-		if (this->sprite.getPosition().y>525)
+		if (this->sprite.getPosition().y > 525)
 		{
-			this->sprite.setPosition(this->sprite.getPosition().x,525);
+			this->sprite.setPosition(this->sprite.getPosition().x, 525);
 			this->jumping = false;
 			a = 0;
-
 		}
 	}
 }
@@ -203,14 +191,4 @@ void Player::update(RenderTarget* target, float deltaTime)
 void Player::render(RenderTarget* target)
 {
 	target->draw(this->sprite);
-}
-
-void Player::resetVelocityX()
-{
-	this->velocity.x = 0.f;
-}
-
-void Player::resetVelocityY()
-{
-	this->velocity.y = 0.f;
 }
