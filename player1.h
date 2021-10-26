@@ -17,14 +17,8 @@ private:
 	Texture texture;
 	IntRect currentFrame;
 	Clock aniTime;
-	//physic
-	Vector2f velocity;
-	float velocityMax;
-	float velocityMin;
-	float acceletion;
-	float drag;
+
 	float gravity;
-	float velocityMaxY;
 
 	bool jumping = false;
 
@@ -52,25 +46,17 @@ public:
 	const sf::Vector2f gatPosition() const;
 	//Modifiers
 	void setPosition(const float x, const float y);
-	void resetVeloccityY();
 
 	//Function
 	void updateInput(float deltaTime);
 	void updateAnimation();
-	void update(RenderTarget* target,float deltaTime);
+	void update(RenderTarget* target, float deltaTime);
 	void render(RenderTarget* target);
-
-	void resetVelocityX();
-	void resetVelocityY();
-	
 
 	void updateMovement();
 public:
 	float jumpF = 400;
 	float g = 9.8;
-	float mass = 50;
-	float speed = 0;
+	float mass = 80;
 	float a = 0;
-
 };
-
