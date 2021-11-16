@@ -166,12 +166,12 @@ int main()
             Text text;
             text.setFont(font);
             text.setFillColor(Color::White);
-            text.setPosition(550, 700);
-            text.setString(name + "Enter your name_");
+            text.setPosition(430, 700);
+            text.setString("Enter your name: "+name + "_");
             window.draw(text);
 
             text.setFont(font);
-            text.setFillColor(Color::White);
+            text.setFillColor(Color::Cyan);
             text.setPosition(500, 750);
             text.setCharacterSize(48);
             text.setString("You Point : "+to_string(game.getPoint()));
@@ -198,7 +198,7 @@ int main()
 
             Text text;
             text.setFont(font);
-            text.setFillColor(Color::White);
+            text.setFillColor(Color::Yellow);
 
             //highscore T.
             int show_max_entry = 10;
