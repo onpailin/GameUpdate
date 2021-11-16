@@ -24,12 +24,48 @@
     <ClCompile Include="player1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="maps.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Coins.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="score-manage-cpp-main\score-manage-cpp-main\src\Score.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="score-manage-cpp-main\score-manage-cpp-main\src\ScoreList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="player1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="maps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Coins.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="score-manage-cpp-main\score-manage-cpp-main\src\include\ScoreList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="score-manage-cpp-main\score-manage-cpp-main\src\include\Score.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,26 +13,22 @@ void Game::initVariables()
 	this->health = 10;
 }
 
-void Game::innitWindow()
-{
-	this->videomode.height = 830;
-	this->videomode.width = 1103;
-	this->window = new RenderWindow(this->videomode, "Test game", Style::Titlebar | Style::Close);
-
-	this->window->setFramerateLimit(60);
-}
-
 void Game::innitFonts()
 {
-	this->font.loadFromFile("Fonts/FC SaveSpace Italic ver 1.01.ttf");
+	if (!this->font.loadFromFile("SMpixxo.ttf"))
+	{
+		std::cout << "ERROR::GAME::INITFONTS::COULD NOT LOAD SMpixxo.ttf" << "\n";
+	}
 }
+
 
 void Game::innitText()
 {
-	this->uiText.setFont(this->font);
-	this->uiText.setCharacterSize(24);
-	this->uiText.setFillColor(Color::White);
-	this->uiText.setString("NONE");
+	//Gui texe innit
+	this->guiText.setFont(this->font);
+	this->guiText.setCharacterSize(48);
+	this->guiText.setFillColor(Color::White);
+	this->guiText.setPosition(20, 20);
 }
 
 void Game::innitEnemy()
@@ -44,19 +40,31 @@ void Game::innitEnemy()
 	this->enemy.setOutlineThickness(1.f);*/
 }
 
+void Game::innitBg()
+{
+	texture.loadFromFile("top down.png");
+	bg.setTexture(texture);
+	texture2.loadFromFile("wallF.png");
+	bg2.setTexture(texture2);
+}
+
 //public
-Game::Game()
+Game::Game(RenderWindow* window)
 {
 	this->initVariables();
-	this->innitWindow();
+	this->window = window;
 	this->innitEnemy();
 	this->innitFonts();
 	this->innitText();
+	this->innitBg();
+	
 }
-
+int Game::getPoint()
+	{
+		return this->points;
+	}
 Game::~Game()
 {
-	delete this->window;
 }
 
 const bool Game::running() const
@@ -108,40 +116,31 @@ void Game::spawnEnemy()
 	this->enemies.push_back(this->enemy);
 }
 
-void Game::pollEvent()
-{
-	while (this->window->pollEvent(this->ev))
-	{
-		switch (this->ev.type)
-		{
-		case Event::Closed:
-			this->window->close();
-			break;
-		case Event::KeyPressed:
-			if (this->ev.key.code == Keyboard::Escape)
-			{
-				this->window->close();
-			}
-			break;
-		default:
-			break;
-		}
-	}
-}
-
-
 void Game::updateMousePosition()
 {
 	this->mousePosWindow = Mouse::getPosition(*this->window);
 	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
 }
 
-void Game::updateText()
+/*void Game::updateText()
 {
 	stringstream ss;
 	ss << "Points: " << this->points << "\n"
 		<< "Health: " << this->health;
-	this->uiText.setString(ss.str());
+	this->guiText.setString(ss.str());
+}
+*/
+void Game::updateGui()
+{
+	std::stringstream ss;
+	ss <<" Points: " << this->points;
+	this->guiText.setString(ss.str());
+	/*this->guiText.setString("Point: ");*/
+}
+
+void Game::setPoint(int point) 
+{
+	this->points = point;
 }
 
 void Game::updateEnemies()
@@ -208,37 +207,51 @@ void Game::updateMap()
 void Game::update()
 {
 	deltaTime = clock.restart().asSeconds();
-	this->pollEvent();
 
-	if (this->endGame == false)
-	{
-		//this->updateMousePosition();
-		//this->updateText();
-		//this->updateEnemies();
-		this->player.update(this->window,deltaTime);
-	}
+	//this->updateMousePosition();
+	//this->updateText();
+	this->player.update(this->window, deltaTime);
 
-	if (this->health <= 0)
-	{
-		this->endGame = true;
-	}
 	this->collision();
+	//this->updateCollision();
+	this->updateGui();
 }
 
 void Game::collision()
 {
-	if (this->player->getPosition().y + this->player->getGlobalBounds().height + 30 > this->window->getSize().y)
+	if (player.getPosition().y + player.getGlobalBounds().height > window->getSize().y)
 	{
-		this->player->reseVelocityY();
-		this->player->setPosition(this->player->getPosition().x, this->window->getSize().y - this->player->getGlobalBound().height);
-		this->player->jumping = false;
-		this->player->gravityBool = false;
+		player.resetVelocityY();
+		player.setPosition(player.getPosition().x,window->getSize().y - player.getGlobalBounds().height);
+	}
+
+	//Coin
+	for (int i = 0; i < player.coins.size(); i++)
+	{	
+		if(player.coins[i].decay <= 0) {
+
+			player.coins.erase(player.coins.begin() + i);
+			break;
+		}
+		if (player.getGlobalBounds().intersects(player.coins[i].getGlobalBounds()))
+		{
+			//cout << coin.size()<<endl;
+			player.coins.erase(player.coins.begin() + i);
+			this->points++;
+			break;
+		}
 	}
 }
 
+/*void Game::updateCollision()
+{
+	this->points++;
+}*/
+
+
 void Game::renderText(RenderTarget& target)
 {
-	target.draw(this->uiText);
+	target.draw(this->guiText);
 }
 
 void Game::renderEnemies(RenderTarget& target)
@@ -249,14 +262,17 @@ void Game::renderEnemies(RenderTarget& target)
 	}
 }
 
+void Game::renderGui(RenderTarget& target)
+{
+	target.draw(this->guiText);
+}
+
 void Game::render()
 {
-	this->window->clear();
-	// draw game here
-	//this->renderEnemies(*this->window);
-
-	//this->renderText(*this->window);
+	this->renderEnemies(*this->window);
+	this->window->draw(bg);
 	this->player.render(this->window);
-
-	this->window->display();
+	this->window->draw(bg2);
+	this->renderText(*this->window);
+	this->renderGui(*this->window);
 }
