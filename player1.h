@@ -106,7 +106,8 @@ public:
 
 	/*float jumpF = 400;
 	float g = 9.8;
-	float mass = 80;
-	float a = 0;*/
-	
+	float mass = 50;
+	float speed = 0;
+	float a = 0;
+
 };

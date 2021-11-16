@@ -53,7 +53,6 @@ Player::Player()
 	this->initVariables();
 	this->initSprite();
 	this->initAnimetion();
-	this->initPhysics();
 }
 
 Player::~Player()
