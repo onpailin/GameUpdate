@@ -103,11 +103,4 @@ public:
 	void drawWall(RenderTarget* target);
 
 	void updateMovement();
-
-	/*float jumpF = 400;
-	float g = 9.8;
-	float mass = 50;
-	float speed = 0;
-	float a = 0;
-
 };
