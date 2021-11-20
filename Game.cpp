@@ -237,7 +237,7 @@ void Game::collision()
 		{
 			//cout << coin.size()<<endl;
 			player.coins.erase(player.coins.begin() + i);
-			this->points++;
+			this->points=points+10;
 			break;
 		}
 	}
