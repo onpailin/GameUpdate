@@ -1,4 +1,4 @@
-﻿#include<iostream>
+#include<iostream>
 #include "Game.h"
 #include <iostream>
 #include "Menu.h"
@@ -9,9 +9,9 @@
 #define GAME_OVER 2
 #define GAME_Leaderboard 3
 
+
 int main()
 {
-
     ScoreList score_list("highscore.txt");
     score_list.loadFile();
 
@@ -22,9 +22,18 @@ int main()
     font.loadFromFile("SMpixxo.ttf");
     Game game(&window);
     Menu menu(window.getSize().x, window.getSize().y);
+    //song
+       sf::Music music;
+    if (!music.openFromFile("Magical Cave Music - Dark Caves Dark, RPG, Mysterious.ogg"))//เอาไฟล์มาใส่
+    {
+        std::cout << "ERROR" << std::endl;
+    }
+    music.play();
+    music.setLoop(true);
+
 
     int game_state = GAME_MENU;
-    float time_left = 30.0f;
+    float time_left = 120.0f;
     float time = time_left;
     sf::Texture texture;
     if (!texture.loadFromFile("menu.jpg")) //ใส่background
