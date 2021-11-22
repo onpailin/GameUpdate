@@ -226,6 +226,7 @@ void Game::collision()
 	}
 
 	//Coin
+
 	for (int i = 0; i < player.coins.size(); i++)
 	{	
 		if(player.coins[i].decay <= 0) {
@@ -241,7 +242,43 @@ void Game::collision()
 			break;
 		}
 	}
+	//diamond
+	for (int i = 0; i < player.diamonds.size(); i++)
+	{
+		if (player.diamonds[i].decays <= 0) {
+
+			player.diamonds.erase(player.diamonds.begin() + i);
+			break;
+		}
+		if (player.getGlobalBounds().intersects(player.diamonds[i].getGlobalBounds()))
+		{
+			//cout << diamonds.size()<<endl;
+			player.diamonds.erase(player.diamonds.begin() + i);
+			this->points = points + 50;
+			break;
+		}
+	}
+	//dispoint
+	for (int i = 0; i < player.dispoints.size(); i++)
+	{
+		if (player.dispoints[i].decayss <= 0) {
+
+			player.dispoints.erase(player.dispoints.begin() + i);
+			break;
+		}
+		if (player.getGlobalBounds().intersects(player.dispoints[i].getGlobalBounds()))
+		{
+			//cout << diamonds.size()<<endl;
+			player.dispoints.erase(player.dispoints.begin() + i);
+			this->points = points - 5;
+			break;
+		}
+	}
+
 }
+
+	
+
 
 /*void Game::updateCollision()
 {
