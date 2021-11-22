@@ -1,4 +1,4 @@
-#include<iostream>
+﻿#include<iostream>
 #include "Game.h"
 #include <iostream>
 #include "Menu.h"
@@ -33,7 +33,7 @@ int main()
 
 
     int game_state = GAME_MENU;
-    float time_left = 120.0f;
+    float time_left = 200.0f;
     float time = time_left;
     sf::Texture texture;
     if (!texture.loadFromFile("menu.jpg")) //ใส่background
@@ -121,7 +121,14 @@ int main()
                     game.player.setPosition(20.f, 200.f);
                 }
                 if (ev.type == Event::Closed) window.close();
+               Text text;
+                text.setFont(font);
+                text.setFillColor(Color::White);
+                text.setPosition(20, 20);
+                text.setString("time: " + to_string(time));
+                window.draw(text);
             }
+
             // Update Game
             game.update();
 
