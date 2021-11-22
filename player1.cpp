@@ -1,4 +1,4 @@
-﻿#include "player1.h"
+#include "player1.h"
 
 void Player::initVariables()
 {
@@ -12,11 +12,18 @@ void Player::initVariables()
 	this->moveNum = 1;
 	this->turnLeft = false;
 	this->coins_delay = 0;
-	
+	this->diamond_delay = 0;
+	this->dispoint_delay = 0;
 }
 void Player::initSprite()
 {
 	if(!this->coin_texture.loadFromFile("money.png")) {
+		cout << "ERROR" << endl;
+	}
+	if (!this->diamond_texture.loadFromFile("dm.png")) {
+		cout << "ERROR" << endl;
+	}
+	if (!this->dispoint_texture.loadFromFile("disp.png")) {
 		cout << "ERROR" << endl;
 	}
 
@@ -118,7 +125,7 @@ void Player::setTile()
 		{1, 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1 ,1 ,1 ,1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -266,7 +273,7 @@ void Player::updateAnimation()
 			{
 			case 1: this->preWidth = 24.f;
 				break;
-			case 2: this->preWidth = 83.f;
+			case 2: this->preWidth = 150.f;
 				break;
 			case 3: this->preWidth = 308.f;
 				break;
@@ -298,6 +305,12 @@ void Player::update(RenderTarget* target, float deltaTime)
 	this->updateCollision();
 	for(int i = 0; i < this->coins.size(); i++) {
 		this->coins.at(i).updatecoins();
+	}
+	for (int i = 0; i < this->diamonds.size(); i++) {
+		this->diamonds.at(i).updatediamond();
+	}
+	for (int i = 0; i < this->dispoints.size(); i++) {
+		this->dispoints.at(i).updatedispoint();
 	}
 }
 
@@ -380,6 +393,53 @@ void Player::spawnCoins(RenderTarget* target) {
 	}
 }
 
+void Player::spawndiamond(RenderTarget* target)
+{
+	int iterate = 0;
+	while (true) {
+		int x = rand() % target->getSize().x;
+		int y = rand() % target->getSize().y;
+		bool can_spawn = true;
+
+		diamond diamond_spawn(x, y, &this->diamond_texture);
+
+		for (int i = 0; i < this->walls.size(); i++)
+		{
+			if (x > this->walls.at(i).getPosition().x - 16 && x < this->walls.at(i).getPosition().x + 16 &&
+				y > this->walls.at(i).getPosition().y - 16 && y < this->walls.at(i).getPosition().y + 16) {
+				can_spawn = false;
+			}
+		}
+		if (iterate > 100) return;
+		if (!can_spawn) continue;
+		this->diamonds.push_back(diamond_spawn);
+		return;
+	}
+}
+void Player::spawndispoint(RenderTarget* target) {
+
+	int iterate = 0;
+	while (true) {
+		int x = rand() % target->getSize().x;
+		int y = rand() % target->getSize().y;
+		bool can_spawn = true;
+
+		dispoint dispoint_spawn(x, y, &this->dispoint_texture);
+
+		for (int i = 0; i < this->walls.size(); i++)
+		{
+			if (x > this->walls.at(i).getPosition().x - 16 && x < this->walls.at(i).getPosition().x + 16 &&
+				y > this->walls.at(i).getPosition().y - 16 && y < this->walls.at(i).getPosition().y + 16) {
+				can_spawn = false;
+			}
+		}
+		if (iterate > 100) return;
+		if (!can_spawn) continue;
+		this->dispoints.push_back(dispoint_spawn);
+		return;
+	}
+}
+
 void Player::render(RenderTarget* target)
 {
 	// Spawn Coins
@@ -389,11 +449,31 @@ void Player::render(RenderTarget* target)
 	}
 	this->coins_delay --;
 
+	//Spawn diamond
+	if (this->diamond_delay < 0) {
+		this->diamond_delay = 700;
+		this->spawndiamond(target);
+	}
+	this->diamond_delay--;
+
+	//Spawn dispoint
+	if (this->dispoint_delay < 0) {
+		this->dispoint_delay = 80;
+		this->spawndispoint(target);
+	}
+	this->dispoint_delay--;
+
 	//this->drawWall(target); //<< ไว้วาดกำแพงหลอก
 	target->draw(this->sprite);
 	
 	for(int i = 0; i < this->coins.size(); i++) {
 		this->coins.at(i).rendercoins(target);
+	}
+	for (int i = 0; i < this->diamonds.size(); i++) {
+		this->diamonds.at(i).renderdiamond(target);
+	}
+	for (int i = 0; i < this->dispoints.size(); i++) {
+		this->dispoints.at(i).renderdispoint(target);
 	}
 } 
 
