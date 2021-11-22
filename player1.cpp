@@ -1,4 +1,4 @@
-#include "player1.h"
+﻿#include "player1.h"
 
 void Player::initVariables()
 {

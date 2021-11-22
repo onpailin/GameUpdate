@@ -9,6 +9,8 @@
 #include<tmxlite/TileLayer.hpp>
 #include<tmxlite/ObjectGroup.hpp>
 #include"Coins.h"
+#include"diamond.h"
+#include"dispoint.h"
 
 #include <vector>
 #include<iostream>
@@ -44,8 +46,14 @@ private:
 	float preHeight;
 	
 	Texture coin_texture;
+	Texture diamond_texture;
+	Texture dispoint_texture;
 	int coins_delay;
+	int diamond_delay;
+	int dispoint_delay;
 	void spawnCoins(RenderTarget* target);
+	void spawndiamond(RenderTarget* target);
+	void spawndispoint(RenderTarget* target);
 	
 	bool moving;
 	int standNum;
@@ -98,6 +106,8 @@ public:
 	void resetVelocityY();
 	void loadmap();
 	vector <Coins> coins;
+	vector <diamond> diamonds;
+	vector <dispoint> dispoints;
 	void setTile();
 	void setWall();
 	void drawWall(RenderTarget* target);
